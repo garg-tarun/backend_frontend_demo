@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { useRegisterDropdown } from './DropDownMgr';
 
 import classes from './DropDown.module.css';
 
 const DropDown = (props) => {
     const [open, setOpen] = useState(false);
+    const dropdownRef = useRegisterDropdown(setOpen);
 
     const handleOpen = () => {
         setOpen(!open);
@@ -15,7 +17,7 @@ const DropDown = (props) => {
     };
 
     return (
-        <div className={`${classes.container} ${props.className}`} style={props.style}>
+        <div ref={dropdownRef} className={`${classes.container} ${props.className}`} style={props.style}>
             {props.label && <span>{props.label}</span>}
             <button onClick={handleOpen} className={classes.dropdown}>
                 {props.leftIcon}
